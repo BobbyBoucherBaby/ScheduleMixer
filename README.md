@@ -25,7 +25,7 @@ python ScheduleMixer.py
 
 - Double-click to run.
 
-
+---
 
 ### 🎯 How it Works
 - Start by selecting a base product (e.g., "OG Kush", "Green Crack").
