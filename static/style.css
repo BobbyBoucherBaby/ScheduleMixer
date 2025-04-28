@@ -62,3 +62,15 @@ ol {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+.ralu-banner {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #e91e63; /* pink color */
+    background: #ffe6f0;
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
