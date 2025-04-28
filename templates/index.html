@@ -2,33 +2,107 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ScheduleMixer Web</title>
+    <title>ScheduleMixer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        p.tip {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        form {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            animation: fadeIn 1s;
+        }
+        select, button {
+            padding: 12px;
+            margin: 12px 0;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 30px;
+            background: #eafaf1;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+            animation: slideIn 1s;
+        }
+        ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-    <h1>ScheduleMixer</h1>
+    <h1>🎯 ScheduleMixer</h1>
+    <p class="tip">Hold <b>CTRL</b> (or <b>CMD</b> on Mac) to select multiple effects</p>
+
     <form method="POST">
-        <label for="start_product">Choose Starting Product:</label>
-        <select name="start_product" id="start_product">
-            {% for product in base_products %}
-            <option value="{{ product }}">{{ product }}</option>
+        <label for="base_product"><b>Choose Base Product:</b></label><br>
+        <select name="base_product" id="base_product" required>
+            {% for product in base_products.keys() %}
+                <option value="{{ product }}">{{ product }}</option>
             {% endfor %}
-        </select>
+        </select><br><br>
 
-        <label for="effects">Select Desired Effects:</label><br>
-        {% for effect in effects %}
-            <input type="checkbox" name="effects" value="{{ effect }}"> {{ effect }}<br>
-        {% endfor %}
+        <label for="desired_effects"><b>Select Desired Effects:</b></label><br>
+        <select name="desired_effects" id="desired_effects" multiple size="10" required>
+            {% for effect in effects_list %}
+                <option value="{{ effect }}">{{ effect }}</option>
+            {% endfor %}
+        </select><br><br>
 
-        <button type="submit">Mix Ingredients!</button>
+        <button type="submit">Mix It!</button>
     </form>
 
-    {% if result %}
-        <h2>Mixing Steps:</h2>
-        <ul>
-        {% for ingredient, effect in result %}
-            <li>Add {{ ingredient }} → Unlocks {{ effect }}</li>
-        {% endfor %}
-        </ul>
+    {% if result is not none %}
+        <div class="result">
+            {% if result %}
+                <h3>Mix these in order:</h3>
+                <ol>
+                    {% for ingredient, effect in result %}
+                        <li><b>Add {{ ingredient }}</b> → Unlocks <i>{{ effect }}</i></li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>❌ No valid path found for the selected combination.</p>
+            {% endif %}
+        </div>
     {% endif %}
 </body>
 </html>
