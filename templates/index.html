@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScheduleMixer Web</title>
+</head>
+<body>
+    <h1>ScheduleMixer</h1>
+    <form method="POST">
+        <label for="start_product">Choose Starting Product:</label>
+        <select name="start_product" id="start_product">
+            {% for product in base_products %}
+            <option value="{{ product }}">{{ product }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="effects">Select Desired Effects:</label><br>
+        {% for effect in effects %}
+            <input type="checkbox" name="effects" value="{{ effect }}"> {{ effect }}<br>
+        {% endfor %}
+
+        <button type="submit">Mix Ingredients!</button>
+    </form>
+
+    {% if result %}
+        <h2>Mixing Steps:</h2>
+        <ul>
+        {% for ingredient, effect in result %}
+            <li>Add {{ ingredient }} → Unlocks {{ effect }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
