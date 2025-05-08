@@ -4,8 +4,8 @@ base_products = {
     'Sour Diesel': 'Refreshing',
     'Green Crack': 'Energizing',
     'Grandaddy Purple': 'Sedating',
-    'Meth': None,
-    'Cocaine': None
+    'AK': None,
+    'A47': None
 }
 
 # --- Effects Mapping ---
